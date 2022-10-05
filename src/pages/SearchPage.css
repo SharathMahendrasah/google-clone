@@ -16,8 +16,40 @@
 }
 
 .searchPage__headerBody > .search > .search__input {
-    margin-top: 0;
+    margin-top: 0px;
     width: unset;
     margin: unset;
     max-width: unset;
+}
+
+.searchPage__options {
+    display: flex;
+    align-items: center;
+    color: grey;
+}
+
+.searchPage__options a,
+.search__options--right a {
+    text-decoration: none;
+    color: grey;
+}
+
+.search__options--right,
+.search__options--left {
+    display: flex;
+    
+}
+
+.search__options--right {
+    margin-left: 80px;
+}
+
+.searchPage__option {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.searchPage__option a {
+    margin-left: 5px;
 }

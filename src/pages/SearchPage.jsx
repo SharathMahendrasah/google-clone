@@ -1,6 +1,7 @@
 import React from "react";
 import { useStateValue } from "../StateProvider";
 import "./SearchPage.css";
+import useGoogleSearch from "../useGoogleSearch"
 import Response from "../response";
 import { Link } from "react-router-dom";
 import Search from "../Search";
@@ -15,9 +16,10 @@ function SearchPage() {
   const [{ term }, dispatch] = useStateValue();
 
   //LIVE API CALL
-  //const { data } = UseGoogleSearch(term);
+  const { data } = useGoogleSearch(term);
 
-  const data = Response;
+  //Mock API CALL
+  //const data = Response;
 
   console.log(data);
 
@@ -72,7 +74,28 @@ function SearchPage() {
         </div>
       </div>
 
-      <div className="searchPage__results"></div>
+      {term && (
+        <div className="searchPage__results">
+          <p className="searchPage__resultCount">
+            About {data?.searchInformation.formattedTotalResults} results ({data?.searchInformation.formattedSearchTime} seconds) for {term} 
+          </p>
+
+          {data?.items.map(item => (
+            <div className="searchPage__result">
+              <a href={item.link} className="searchPage__resultLink">
+                {item.pagemap?.cse_image?.length > 0 && item.pagemap?.cse_image[0].src && (
+                  <img className="searchPage__resultImage" src={item.pagemap?.cse_image?.length > 0 && item.pagemap?.cse_image[0]?.src} alt="" />
+                )}
+                {item.displayLink} 
+              </a>
+              <a href={item.link} className="searchPage__resultTitle">
+                <h2>{item.title}</h2>
+              </a>
+              <p className="searchPage__resultSnippet">{item.snippet}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
